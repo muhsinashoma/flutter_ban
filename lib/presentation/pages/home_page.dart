@@ -16,12 +16,12 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('State manager showcase'),
+        title: const Text('State manager showcase ------------'),
       ),
       body: ListView(
         children: [
           _buildListTile(
-            title: 'Set State',
+            title: 'Set State -------',
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(builder: (_) => const KanbanSetStatePage()),
             ),

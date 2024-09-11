@@ -1,6 +1,8 @@
+
 import 'package:flutter/material.dart';
 
 import 'button_widget.dart';
+
 
 class AddTaskForm extends StatefulWidget {
   final Function addTaskHandler;
@@ -11,6 +13,7 @@ class AddTaskForm extends StatefulWidget {
 }
 
 class _AddTaskFormState extends State<AddTaskForm> {
+
   final TextEditingController _textController = TextEditingController();
 
   @override
@@ -41,7 +44,7 @@ class _AddTaskFormState extends State<AddTaskForm> {
               child: TextFormField(
                 autofocus: true,
                 decoration: const InputDecoration(
-                  hintText: 'Task Title',
+                  hintText: 'Input Task Title ',
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {

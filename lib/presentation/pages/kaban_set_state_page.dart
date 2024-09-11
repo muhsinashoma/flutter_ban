@@ -1,9 +1,15 @@
+//import 'dart:html';
+
+
+
 import 'package:flutter/material.dart';
 
 import '../../data/data.dart';
 import '../../models/models.dart';
 import '../widgets/kanban_board.dart';
 import 'kanban_board_controller.dart';
+import 'package:http/http.dart' as http;
+
 
 class KanbanSetStatePage extends StatefulWidget {
   const KanbanSetStatePage({super.key});
@@ -14,6 +20,9 @@ class KanbanSetStatePage extends StatefulWidget {
 
 class _KanbanSetStatePageState extends State<KanbanSetStatePage>
     implements KanbanBoardController {
+
+      //TextEditingController controllerTitle = TextEditingController();
+
   List<KColumn> columns = Data.getColumns();
   @override
   Widget build(BuildContext context) {
@@ -62,6 +71,11 @@ class _KanbanSetStatePageState extends State<KanbanSetStatePage>
   void addTask(String title, int column) {
     setState(() {
       columns[column].children.add(KTask(title: title));
+    });
+
+    var url = Uri.parse("http://192.168.34.128/API/task_add.php");
+    http.post(url, body: {
+      "title": title,
     });
   }
 
