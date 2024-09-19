@@ -29,7 +29,7 @@ class _AddColumnFormState extends State<AddColumnForm> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'Add Column',
+              'Add Column ------',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w700,

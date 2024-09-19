@@ -1,15 +1,11 @@
-//import 'dart:html';
-
-
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../../data/data.dart';
 import '../../models/models.dart';
 import '../widgets/kanban_board.dart';
 import 'kanban_board_controller.dart';
-import 'package:http/http.dart' as http;
-
 
 class KanbanSetStatePage extends StatefulWidget {
   const KanbanSetStatePage({super.key});
@@ -20,15 +16,34 @@ class KanbanSetStatePage extends StatefulWidget {
 
 class _KanbanSetStatePageState extends State<KanbanSetStatePage>
     implements KanbanBoardController {
+  //TextEditingController controllerTitle = TextEditingController();
 
-      //TextEditingController controllerTitle = TextEditingController();
+  List<KColumn> columns = [];
 
-  List<KColumn> columns = Data.getColumns();
+  getColumnData() async {
+    try {
+      final dio = Dio();
+      var response =
+          await dio.get("http://192.168.33.62/API/get_column_data.php");
+      // print(response.data);
+      columns = Data.getColumns(response.data);
+      setState(() {});
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getColumnData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Set State'),
+        title: const Text('Set State------------test-----'),
       ),
       body: SafeArea(
         child: KanbanBoard(
@@ -65,6 +80,14 @@ class _KanbanSetStatePageState extends State<KanbanSetStatePage>
         children: List.of([]),
       ));
     });
+
+    print('-------------------');
+    var url = Uri.parse("http://192.168.33.62/API/column_add.php");
+    print(url);
+
+    http.post(url, body: {
+      "title": title,
+    });
   }
 
   @override
@@ -73,7 +96,8 @@ class _KanbanSetStatePageState extends State<KanbanSetStatePage>
       columns[column].children.add(KTask(title: title));
     });
 
-    var url = Uri.parse("http://192.168.34.128/API/task_add.php");
+    var url = Uri.parse("http://192.168.33.62/API/task_add.php");
+    print(url);
     http.post(url, body: {
       "title": title,
     });
