@@ -102,29 +102,65 @@ class _KanbanSetStatePageState extends State<KanbanSetStatePage>
 
         for (var board in taskData) {
           var tasks = board['tasks'] as List;
-          tasksForColumns.add({
-            'id': board['id'],
-            'title': board['title'],
-            'tasks': tasks
-                .map((task) => {'id': task['id'], 'title': task['title']})
-                .toList()
-            // Add more fields if necessary
-          });
+          for (var task in tasks) {
+            tasksForColumns.add({
+              'id': task['id'],
+              'title': task['title'],
+              'tasks': tasks
+                  .map((task) => {'id': task['id'], 'title': task['title']})
+                  .toList()
+              // Add more fields if necessary
+            });
+          }
         }
 
         print('--------------task under column-----------------');
         // Convert collected tasks to columns
         var finalData = Data.getColumns(jsonEncode(tasksForColumns));
-
+        //   print("finalData");
+        // print(finalData);
         columns = finalData;
-
         setState(() {});
+        //return finalData;
       }
     } catch (e) {
       print(e);
     }
     return [];
   }
+
+  // getTaskData() async {
+  //   try {
+  //     final dio = Dio();
+  //     var response =
+  //         await dio.get("http://192.168.35.205/API/get_task_data.php");
+
+  //     if (response.statusCode == 200) {
+  //       var taskData = response.data['task_boards'] as List;
+
+  //       // Collect tasks for columns
+  //       List<Map<String, dynamic>> columnsData = [];
+
+  //       for (var board in taskData) {
+  //         var tasks = board['tasks'] as List;
+  //         columnsData.add({
+  //           'id': board['id'],
+  //           'title': board['title'],
+  //           'tasks': tasks
+  //               .map((task) => {'id': task['id'], 'title': task['title']})
+  //               .toList()
+  //         });
+  //       }
+
+  //       print('--------------task under column-----------------');
+  //       // Convert collected tasks to columns
+  //       return Data.getColumns(jsonEncode(columnsData));
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  //   return [];
+  // }
 
   @override
   Widget build(BuildContext context) {

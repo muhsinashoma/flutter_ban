@@ -1,51 +1,26 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 import '../models/models.dart';
 
 class Data {
   static List<KColumn> getColumns([String? data]) {
-    print("SDfsdfsdfsdf");
-    print(data);
-
+    // Decode the JSON data
     List<dynamic> jsonData = jsonDecode(data!);
 
     return jsonData.map((item) {
-      print(item['title']);
+      // Fetching tasks for the current column
+      List<KTask> tasks = [];
+      if (item['tasks'] != null) {
+        tasks = (item['tasks'] as List).map((task) {
+          return KTask(title: task['title']);
+        }).toList();
+      }
       return KColumn(
         title: item['title'],
-        children: [
-          KTask(title: 'ToDo 1'),
-        ], // Ignoring children as per your requirement
+        children: tasks,
       );
     }).toList();
-    // return List.from([
-    //   KColumn(
-    //     title: 'To Do',
-    //     children: [
-    //       KTask(title: 'ToDo 1'),
-    //       KTask(title: 'ToDo 2'),
-    //     ],
-    //   ),
-
-    //   KColumn(
-    //     title: 'In Progress',
-    //     children: [
-    //       KTask(title: 'ToDo 3'),
-    //     ],
-    //   ),
-
-    //   // KColumn(title: 'QA',
-    //   // children: [
-    //   //    KTask(title: 'QA test 1'),
-    //   // ]),
-
-    //   // KColumn(
-    //   //   title: 'Done',
-    //   //   children: [
-    //   //     KTask(title: 'ToDo 4'),
-    //   //     KTask(title: 'ToDo 5'),
-    //   //   ],
-    //   // )
-    // ]);
   }
 }

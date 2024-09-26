@@ -18,9 +18,8 @@ class Data {
           KTask(title: 'ToDo 3'),
         ],
       ),
-      KColumn(title: 'QA', 
-      children: [
-         KTask(title: 'QA test 1'),
+      KColumn(title: 'QA', children: [
+        KTask(title: 'QA test 1'),
       ]),
       KColumn(
         title: 'Done',
